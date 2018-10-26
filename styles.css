@@ -1,0 +1,128 @@
+li {
+	
+}
+
+h1 {
+
+}
+
+#banner_back{
+position:fixed;
+background-color:#7fb0ff;
+left:-10px;
+top:-10px;
+width:100.5%;
+height:300px;
+z-index:2;
+}
+
+#banner{
+position:absolute;
+top:-100px;
+left:25%;
+transition: all .2s ease-in-out;
+color:#044fcc;
+}
+
+#banner:hover {
+transform: rotate3d(1, 1, 1, 10deg);
+font-size:130px;
+}
+
+.bigtext {
+font-size: 100px;
+}
+
+#facts {
+position:absolute;
+font-size:20px;
+top:150px;
+left:40%;
+}
+
+#body_back {
+position:absolute;
+top:290px;
+left:-10px;
+width:100.5%;
+height:200%;
+background-image: linear-gradient(#044fcc, #7fb0ff);
+}
+
+#basic_inf{
+position:absolute;
+font-size:20px;
+top:400px;
+left:40%;
+}
+
+#i_like{
+position:absolute;
+font-size:20px;
+top:600px;
+left:40%;
+}
+
+#best_cars{
+position:absolute;
+font-size:20px;
+top:800px;
+left:40%;
+}
+
+#upload{
+position:absolute;
+font-size:20px;
+top:1000px;
+left:40%;
+}
+
+#pepper{
+position:absolute;
+top:10px;
+left:200px;
+z-index:1;
+animation-name: rotate; 
+animation-duration: 2s; 
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+transition-property: transform;
+transition-duration: 1s;
+}
+
+#pepper_img{
+width:100px;
+height:auto;
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+#links {
+position:absolute;
+top:100px;
+left:47%;
+z-index:3;
+}
+
+#mapid { 
+position:absolute;
+top:160px;
+height: 500px;
+width: 800px;
+left:30%;
+ }
+
+#track_name {
+position:absolute;
+top:100;
+left:45%;
+}
+
+#heart_rate {
+position:absolute;
+top:100;
+left:45%;
+}
