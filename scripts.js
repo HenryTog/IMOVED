@@ -30,16 +30,6 @@ file = $("#input").prop('files')[0];
 $("#display").attr("src",URL.createObjectURL(file));
 }
 
-function start_falling(){
-var tid = setInterval(fall, 20);
-}
-function fall() {
-$('#pepper').css('top', (parseInt($('#pepper').css('top').replace(/\D/g,'')) + 1) + "px");
-if (parseInt($('#pepper').css('top').replace(/\D/g,'')) > 2000){
-$('#pepper').css('top', '100px');
-}
-}
-
 function upload_gpx_pressed(){
 var read = new FileReader();
 file = $("#input").prop('files')[0];
@@ -68,9 +58,9 @@ ratesCount+=1;
 var polyline = L.polyline(linePoints, {color: 'red'}).addTo(mymap);
 // zoom the map to the polyline
 mymap.fitBounds(polyline.getBounds());
-alert(heartRates);
-alert(ratesCount);
-alert(heartRates/ratesCount);
+//alert(heartRates);
+//alert(ratesCount);
+//alert(heartRates/ratesCount);
 $('#heart_rate').html(heartRates/ratesCount);
-
+$("#mapid").css("visibility","visible");
 }

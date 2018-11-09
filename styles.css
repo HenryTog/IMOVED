@@ -8,7 +8,7 @@ h1 {
 
 #banner_back{
 position:fixed;
-background-color:#7fb0ff;
+background-color:#B200B2;
 left:-10px;
 top:-10px;
 width:100.5%;
@@ -21,7 +21,7 @@ position:absolute;
 top:-100px;
 left:25%;
 transition: all .2s ease-in-out;
-color:#044fcc;
+color:#FFFFFF;
 }
 
 #banner:hover {
@@ -45,8 +45,8 @@ position:absolute;
 top:290px;
 left:-10px;
 width:100.5%;
-height:200%;
-background-image: linear-gradient(#044fcc, #7fb0ff);
+height:100%;
+background-image: linear-gradient(#B200B2, #FFFFFF);
 }
 
 #basic_inf{
@@ -77,28 +77,6 @@ top:1000px;
 left:40%;
 }
 
-#pepper{
-position:absolute;
-top:10px;
-left:200px;
-z-index:1;
-animation-name: rotate; 
-animation-duration: 2s; 
-animation-iteration-count: infinite;
-animation-timing-function: linear;
-transition-property: transform;
-transition-duration: 1s;
-}
-
-#pepper_img{
-width:100px;
-height:auto;
-}
-
-@keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
 
 #links {
 position:absolute;
