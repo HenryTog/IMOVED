@@ -24,11 +24,6 @@ transition: all .2s ease-in-out;
 color:#FFFFFF;
 }
 
-#banner:hover {
-transform: rotate3d(1, 1, 1, 10deg);
-font-size:130px;
-}
-
 .bigtext {
 font-size: 100px;
 }
@@ -103,4 +98,10 @@ left:45%;
 position:absolute;
 top:100;
 left:45%;
+}
+
+#form {
+position:absolute;
+left:40%;
+top:100px;
 }
