@@ -13,7 +13,7 @@ left:-10px;
 top:-10px;
 width:100.5%;
 height:300px;
-z-index:2;
+z-index:50000;
 }
 
 #banner{
@@ -90,18 +90,18 @@ left:30%;
 
 #track_name {
 position:absolute;
-top:100;
+top:100px;
 left:45%;
 }
 
 #heart_rate {
 position:absolute;
-top:100;
+top:120px;
 left:45%;
 }
 
 #form {
 position:absolute;
 left:40%;
-top:100px;
+top:140px;
 }
