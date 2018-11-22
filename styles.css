@@ -8,61 +8,47 @@ h1 {
 
 #banner_back{
 position:fixed;
-background-color:#B200B2;
+background-color:#FFE4FB;
 left:-10px;
-top:-10px;
-width:100.5%;
-height:300px;
+top:-1%;
+width:101.5%;
+height:100px;
 z-index:50000;
+/*background-image:linear-gradient(180deg, #bab2fc 60%, #9bdaff 100%);*/
+/*background-image:linear-gradient(-137deg, #1F0043 0%, #E50071 100%);*/
 }
 
 #banner{
-position:absolute;
-top:-100px;
-left:25%;
+position:relative;
+top:-80%;
 transition: all .2s ease-in-out;
-color:#FFFFFF;
+color:#1F0043;
+text-align:center;
+font-family: 'Kanit', sans-serif;
+}
+
+#banner:hover{
+color:#E50071;
 }
 
 .bigtext {
-font-size: 100px;
-}
-
-#facts {
-position:absolute;
-font-size:20px;
-top:150px;
-left:40%;
+font-size: 45px;
+background: -webkit-linear-gradient(#1F0043, #E50071);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #body_back {
-position:absolute;
-top:290px;
-left:-10px;
-width:100.5%;
-height:100%;
-background-image: linear-gradient(#B200B2, #FFFFFF);
-}
-
-#basic_inf{
-position:absolute;
-font-size:20px;
-top:400px;
-left:40%;
-}
-
-#i_like{
-position:absolute;
-font-size:20px;
-top:600px;
-left:40%;
-}
-
-#best_cars{
-position:absolute;
-font-size:20px;
-top:800px;
-left:40%;
+position:relative;
+top:9%;
+left:-1%;
+width:101.5%;
+height:130%;
+background-color:#1F0043;
+color:White;
+/*background-image: linear-gradient(#B200B2, #FFFFFF);*/
+background-image:linear-gradient(-137deg, #1F0043 0%, #E50071 100%);
+font-family: 'Quicksand', sans-serif;
 }
 
 #upload{
@@ -70,14 +56,6 @@ position:absolute;
 font-size:20px;
 top:1000px;
 left:40%;
-}
-
-
-#links {
-position:absolute;
-top:100px;
-left:47%;
-z-index:3;
 }
 
 #mapid { 
@@ -100,8 +78,20 @@ top:120px;
 left:45%;
 }
 
+#distance {
+position:absolute;
+top:150px;
+left:45%;
+}
+
 #form {
 position:absolute;
 left:40%;
 top:140px;
+}
+
+#bmicalc {
+position:absolute;
+left:35%;
+top:20%;
 }
