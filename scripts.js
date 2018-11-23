@@ -7,7 +7,7 @@ function clicked() {
     var top = 0;
 
     for (i = 0; i < infos.length; i++) {
-        if (first == true) {
+        if (first === true) {
             top = $('#' + infos[i].id).css("top");
             first = false;
         }
@@ -16,7 +16,7 @@ function clicked() {
         if (swap >= infos.length) {
             swap = 0;
         }
-        if (swap == 0) {
+        if (swap === 0) {
             $('#' + infos[i].id).css('top', top);
         } else {
             $('#' + infos[i].id).css('top', $('#' + infos[swap].id).css("top"));
@@ -36,7 +36,7 @@ function upload_gpx_pressed() {
 	//alert(gpx);
         xmlDoc = $.parseXML(gpx);
         display_xml(xmlDoc);
-    }
+    };
     $("#form").css("visibility", "hidden");
 }
 
@@ -68,7 +68,7 @@ function get_dist(first_lat, first_lng, second_lat, second_lng){ // This totally
     return d; //km
 */
 var unit = "K";
-if ((first_lat == second_lat) && (first_lng == second_lng)) {
+if ((first_lat === second_lat) && (first_lng === second_lng)) {
 		return 0;
 	}
 	else {
@@ -83,8 +83,7 @@ if ((first_lat == second_lat) && (first_lng == second_lng)) {
 		dist = Math.acos(dist);
 		dist = dist * 180/Math.PI;
 		dist = dist * 60 * 1.1515;
-		if (unit=="K") { dist = dist * 1.609344 }
-		if (unit=="N") { dist = dist * 0.8684 }
+		dist = dist * 1.609344; // Convert to km
 		return dist;
 	}
 }
@@ -98,7 +97,7 @@ function computeBMI() {
 
 	document.getElementById("output").innerText = Math.round(BMI * 100) / 100;
 
-	var output = Math.round(BMI * 100) / 100
+	var output = Math.round(BMI * 100) / 100;
 
 	if (output < 18.5)
 	    document.getElementById("comment").innerText = "Underweight";
@@ -120,20 +119,33 @@ function display_xml(xml) {
     $("#track_name").html($(track).find("name"));
     var points = $(track).find("trkpt");
     var linePoints = [];
-    var elevations = [];
+    /*var elevations = [];*/
     var speeds = [];
+    var speedList = [];
+
+    var elevationList = [];
+    var timeList = [];
+
     var heartRates = 0;
     var ratesCount = 0;
     var dist = 0;
     for (var i = 0; i < points.length; i++) {
         linePoints.push([points[i].getAttribute('lat'), points[i].getAttribute('lon')]);
-	elevations.push([$(points[i]).find('time').first(), $(points[i]).find('ele').first()]);
+	/*elevations.push([$(points[i]).find("time")[0]['innerHTML'], $(points[i]).find("ele")[0]['innerHTML']]);*/
+
+        var elevation = $(points[i]).find("ele")[0]['innerHTML'];
+        elevationList.push(elevation);
+
+        var time = $(points[i]).find("time")[0]['innerHTML'];
+        timeList.push(time);
+
         heartRates += parseInt($(points[i]).find("gpxtpxhr")[0]['innerHTML']);
         ratesCount += 1;
-        if (i==0){
+        if (i===0){
 	    continue;
 	}
-	speeds.push([$(points[i]).find('time').first(),get_speed(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'),$(points[i-1]).find('time').first(),$(points[i]).find('time').first())]);
+
+	speeds.push(get_speed(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'),$(points[i-1]).find('time').first(),$(points[i]).find('time').first()));
         dist += get_dist(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'));
     }
     var polyline = L.polyline(linePoints, {
@@ -144,22 +156,43 @@ function display_xml(xml) {
     $('#heart_rate').html("Average Heart Rate : " + Math.round(heartRates / ratesCount));
     $('#distance').html("Distance : " + dist);
     $("#mapid").css("visibility", "visible");
-alert(dist);
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myLineChart = new Chart(ctx, {
-        type: "line",
-	data:[{labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-				datasets: [{
-					label: 'My First dataset',
-					backgroundColor: "Red",
-					borderColor: "Blue",
-					data: [
-						1,4,7,2,8,3,1
-					],
-					fill: false,
-				}],
-        //data: elevations,
-        options: "responsive: false",}]
-});
+
+    var ctx = document.getElementById('elevations').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels:timeList,
+            datasets: [{
+                label: "My First dataset",
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: elevationList,
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+alert(speeds);
+    var ctx = document.getElementById('speeds').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels:timeList,
+            datasets: [{
+                label: "My First dataset",
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: speeds,
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
 
 }
