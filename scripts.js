@@ -43,11 +43,7 @@ function upload_gpx_pressed() {
 function get_speed(first_lat, first_lng, second_lat, second_lng, first_time, second_time){ // This totally works and is incredibly accurate
 
     var date_diff = Math.abs((new Date(second_time[0]['innerHTML']).getTime()) - (new Date(first_time[0]['innerHTML']).getTime())) / (1000*60*60);
-console.log(Math.abs((new Date(second_time[0]['innerHTML']).getTime()) - (new Date(first_time[0]['innerHTML']).getTime())));    
     d = get_dist(first_lat, first_lng, second_lat, second_lng)   
-console.log(d);
-console.log(date_diff);
-console.log((d/date_diff) + "km/h");
     return d/date_diff; //km/h
 
 }
@@ -67,8 +63,8 @@ function get_dist(first_lat, first_lng, second_lat, second_lng){ // This totally
     var d = R * c;
     return d; //km
 */
-var unit = "K";
-if ((first_lat === second_lat) && (first_lng === second_lng)) {
+	var unit = "K";
+	if ((first_lat === second_lat) && (first_lng === second_lng)) {
 		return 0;
 	}
 	else {
@@ -116,7 +112,7 @@ function computeBMI() {
 function display_xml(xml) {
     $('#bmicalc').css("top", "70%");
     var track = $(xml).find("trk").first();
-    $("#track_name").html($(track).find("name"));
+    $("#track_name").html("<b>" + $(track).find("name")[0]['innerHTML'] + "</b>");
     var points = $(track).find("trkpt");
     var linePoints = [];
     /*var elevations = [];*/
@@ -129,11 +125,17 @@ function display_xml(xml) {
     var heartRates = 0;
     var ratesCount = 0;
     var dist = 0;
+    var tmp = 0;
+    var topSpeed = 0;
+
     for (var i = 0; i < points.length; i++) {
         linePoints.push([points[i].getAttribute('lat'), points[i].getAttribute('lon')]);
 	/*elevations.push([$(points[i]).find("time")[0]['innerHTML'], $(points[i]).find("ele")[0]['innerHTML']]);*/
 
         var elevation = $(points[i]).find("ele")[0]['innerHTML'];
+	if (elevation < 5){
+		elevation = 5;
+	}	
         elevationList.push(elevation);
 
         var time = $(points[i]).find("time")[0]['innerHTML'];
@@ -144,8 +146,16 @@ function display_xml(xml) {
         if (i===0){
 	    continue;
 	}
+	tmp = get_speed(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'),$(points[i-1]).find('time').first(),$(points[i]).find('time').first());
+	if (tmp < 5){
+		tmp = 5;
+	}
 
-	speeds.push(get_speed(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'),$(points[i-1]).find('time').first(),$(points[i]).find('time').first()));
+	if (tmp > topSpeed){
+		topSpeed = tmp;
+	}
+
+	speeds.push(tmp);
         dist += get_dist(points[i-1].getAttribute('lat'), points[i-1].getAttribute('lon'),points[i].getAttribute('lat'), points[i].getAttribute('lon'));
     }
     var polyline = L.polyline(linePoints, {
@@ -153,8 +163,9 @@ function display_xml(xml) {
     }).addTo(mymap);
     // zoom the map to the polyline
     mymap.fitBounds(polyline.getBounds());
-    $('#heart_rate').html("Average Heart Rate : " + Math.round(heartRates / ratesCount));
-    $('#distance').html("Distance : " + dist);
+    $('#heart_rate').html("<b>Average Heart Rate : </b>" + Math.round(heartRates / ratesCount));
+    $('#distance').html("<b>Distance : </b>" + Math.round(dist));
+    $('#top_speed').html("<b>Top Speed : </b>" + Math.round(topSpeed) + "<b>km/h</b>");
     $("#mapid").css("visibility", "visible");
 
     var ctx = document.getElementById('elevations').getContext('2d');
@@ -165,17 +176,17 @@ function display_xml(xml) {
         data: {
             labels:timeList,
             datasets: [{
-                label: "My First dataset",
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                label: "Elevations",
+                backgroundColor: '#FFE4FB',
+                borderColor: '#FFE4FB',
                 data: elevationList,
+		pointRadius: 1,
             }]
         },
 
         // Configuration options go here
         options: {}
     });
-alert(speeds);
     var ctx = document.getElementById('speeds').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
@@ -184,15 +195,16 @@ alert(speeds);
         data: {
             labels:timeList,
             datasets: [{
-                label: "My First dataset",
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                label: "Speed",
+                backgroundColor: '#FFE4FB',
+                borderColor: '#FFE4FB',
                 data: speeds,
+		pointRadius: 1,
             }]
         },
 
         // Configuration options go here
-        options: {}
+        options: {legend:{labels:{fontColor: 'WHITE'},ticks:{fontColor:'WHITE'}}}
     });
 
 }
