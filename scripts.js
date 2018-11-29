@@ -38,6 +38,7 @@ function upload_gpx_pressed() {
         display_xml(xmlDoc);
     };
     $("#form").css("visibility", "hidden");
+	$(".buttons").css("padding-top", "0");
 }
 
 function get_speed(first_lat, first_lng, second_lat, second_lng, first_time, second_time){ // This totally works and is incredibly accurate
@@ -110,7 +111,7 @@ function computeBMI() {
 
 
 function display_xml(xml) {
-    $('#bmicalc').css("top", "70%");
+    $('#bmicalc').css("padding-top", "10%");
     var track = $(xml).find("trk").first();
     $("#track_name").html("<b>" + $(track).find("name")[0]['innerHTML'] + "</b>");
     var points = $(track).find("trkpt");
