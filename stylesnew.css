@@ -69,3 +69,7 @@ a{
 	font-size: 20px;
 	font-family: 'Quicksand', sans-serif;
 }
+
+#track_name{
+	padding-bottom: 2%;
+}
