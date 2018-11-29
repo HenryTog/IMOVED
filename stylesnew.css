@@ -36,6 +36,10 @@ html, body {
 
 }
 
+a{
+	text-decoration: none; /* no underline */
+}
+
 .buttons{
 	padding-top: 15%;
 	margin: auto;
