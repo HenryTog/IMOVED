@@ -27,16 +27,21 @@
 	/*background-image: linear-gradient(#B200B2, #FFFFFF);*/
 	background-image:linear-gradient(-137deg, #1F0043 0%, #E50071 100%);
 	font-family: 'Quicksand', sans-serif;
-	height: 100%;
+	height: 150%;
 	overflow: hidden;
 	text-align:center;
 }
 
-html, body {
-
+body {
+	background-color:#FFE4FB;
+	scroll-behavior: smooth;
 }
 
 a{
+	text-decoration: none; /* no underline */
+}
+
+a:hover{
 	text-decoration: none; /* no underline */
 }
 
@@ -54,8 +59,7 @@ a{
 }
 
 #mapid { 
-	height: 500px;
-	width: 800px;
+	height: 600px;
 }
 
 #bmicalc{
@@ -72,4 +76,56 @@ a{
 
 #track_name{
 	padding-bottom: 2%;
+}
+
+#bigBut{
+    display:none;
+}
+
+#computeBMI{
+    display:none;
+}
+
+.butBit{
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:60%;
+    height:70px;
+    background-color:#381051;
+    vertical-align: middle;
+    font-size:30px;
+}
+
+.bmiBit{
+    width:60%;
+}
+
+#bmirow{
+    height:200%;
+}
+
+#bmibut{
+    top:15%;
+    display: inline-block;
+}
+
+#bmibut b{
+    position:absolute;
+    left:40px;
+}
+
+#bmiback{
+    background-color:#2A2A2A;
+    border-radius:25px;
+    top:-20px;
+    height:400px;
+}
+
+#track_name{
+    font-size:25px;
 }
