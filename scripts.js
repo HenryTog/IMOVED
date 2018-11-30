@@ -7,12 +7,21 @@ var speedChart = null;
 var speedDataset = null;
 
 function upload_gpx_pressed() {
+
     if (currentPolylines != null){
         currentPolylines.remove();
     }
 
     var read = new FileReader();
     file = $("#bigBut").prop('files')[0];
+
+    if (file.name.split('.').pop() != "gpx"){
+	$("#butLab").unbind('mouseover');
+	$("#butLab").unbind('mouseout');
+	$("#butLab").css("background-color", "RED");
+	$("#uploadTxt").html("Upload GPX! File");
+	return;
+    }
 
     read.readAsBinaryString(file);
 
@@ -22,13 +31,25 @@ function upload_gpx_pressed() {
         display_xml(xmlDoc);
     };
     $("#uploadTxt").html("Upload A New GPX File");
+    $("#butLab").css("background-color","#381051");
     $("#rb").css("padding-top", "2%");
+
+$("#butLab").mouseover(function() {
+    $(this).css("background-color","#2A2A2A");
+}).mouseout(function() {
+    $(this).css("background-color","#381051");
+});
+
+    /*$("#butLab").hover(function() {
+  	$(this).css("background-color","#2A2A2A");
+	});*/
+
 }
 
 function get_speed(first_lat, first_lng, second_lat, second_lng, first_time, second_time){ // This totally works and is incredibly accurate
 
     var date_diff = Math.abs((new Date(second_time[0]['innerHTML']).getTime()) - (new Date(first_time[0]['innerHTML']).getTime())) / (1000*60*60);
-    d = get_dist(first_lat, first_lng, second_lat, second_lng)   
+    d = get_dist(first_lat, first_lng, second_lat, second_lng);  
     return d/date_diff; //km/h
 
 }
