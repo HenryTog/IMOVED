@@ -102,7 +102,7 @@ a:hover{
 }
 
 .bmiBit{
-    width:60%;
+    width:170px;
 }
 
 #bmirow{
@@ -116,7 +116,7 @@ a:hover{
 
 #bmibut b{
     position:absolute;
-    left:11.5%;
+    left:35px;
     font-family: 'Quicksand', sans-serif;
 }
 

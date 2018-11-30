@@ -10,9 +10,6 @@ function upload_gpx_pressed() {
     if (currentPolylines != null){
         currentPolylines.remove();
     }
-    if (speedChart == null) {
-
-    }
 
     var read = new FileReader();
     file = $("#bigBut").prop('files')[0];
@@ -37,20 +34,6 @@ function get_speed(first_lat, first_lng, second_lat, second_lng, first_time, sec
 }
 
 function get_dist(first_lat, first_lng, second_lat, second_lng){ // This totally works and is incredibly accurate
-/*
-    var lat_diff = Math.abs(second_lat - first_lat);
-    var lng_diff = Math.abs(second_lng - first_lng);
-
-    var R = 6371; // Radius of the earth in km
-
-    var a = Math.sin(lat_diff/2) * Math.sin(lat_diff/2) +
-    Math.cos(deg2rad(lat_diff)) * Math.cos(deg2rad(lat_diff)) * 
-    Math.sin(lng_diff/2) * Math.sin(lng_diff/2);
-
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    var d = R * c;
-    return d; //km
-*/
 	var unit = "K";
 	if ((first_lat === second_lat) && (first_lng === second_lng)) {
 		return 0;
@@ -182,7 +165,7 @@ function display_xml(xml) {
 	tips = "Your heart rate is quite low, " + hrLowTips[Math.floor(Math.random() * hrHighTips.length)];
     }
 
-    if (maxEle - minEle > 500){
+    if (maxEle - minEle > 100){
 	tips += "  You went on a mountainous route, " + hrHighTips[Math.floor(Math.random() * hrHighTips.length)];
     }else{
 	tips += "  Your route was quite flat, " + eleLowTips[Math.floor(Math.random() * eleLowTips.length)];
