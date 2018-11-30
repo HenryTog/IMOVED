@@ -116,7 +116,8 @@ a:hover{
 
 #bmibut b{
     position:absolute;
-    left:40px;
+    left:11.5%;
+    font-family: 'Quicksand', sans-serif;
 }
 
 #bmiback{

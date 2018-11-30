@@ -1,4 +1,19 @@
+var currentPolylines = null;
+
+var elevationsChart = null;
+var elevationsDataset = null;
+
+var speedChart = null;
+var speedDataset = null;
+
 function upload_gpx_pressed() {
+    if (currentPolylines != null){
+        currentPolylines.remove();
+    }
+    if (speedChart == null) {
+
+    }
+
     var read = new FileReader();
     file = $("#bigBut").prop('files')[0];
 
@@ -6,8 +21,7 @@ function upload_gpx_pressed() {
 
     read.onloadend = function() {
 	var gpx = read.result.replace(/(<\/*)([^<>]*:)(hr|cad|TrackPointExtension)/ig, '$1$3');
-	//alert(gpx);
-        xmlDoc = $.parseXML(gpx);
+	    xmlDoc = $.parseXML(gpx);
         display_xml(xmlDoc);
     };
     $("#uploadTxt").html("Upload A New GPX File");
@@ -114,8 +128,7 @@ function display_xml(xml) {
 
     for (var i = 0; i < points.length; i++) {
         linePoints.push([points[i].getAttribute('lat'), points[i].getAttribute('lon')]);
-	/*elevations.push([$(points[i]).find("time")[0]['innerHTML'], $(points[i]).find("ele")[0]['innerHTML']]);*/
-        var elevation = $(points[i]).find("ele")[0]['innerHTML'];
+	    var elevation = $(points[i]).find("ele")[0]['innerHTML'];
 	elevation = Math.round(elevation*100)/100;
 	if (elevation > maxEle){
 	    maxEle = elevation;	
@@ -190,11 +203,11 @@ function display_xml(xml) {
    	 }
 	});
 
-    var polyline = L.polyline(linePoints, {
+    currentPolylines = L.polyline(linePoints, {
         color: 'red'
     }).addTo(mymap);
     // zoom the map to the polyline
-    mymap.fitBounds(polyline.getBounds());
+    mymap.fitBounds(currentPolylines.getBounds());
     $('#heart_rate').html("<b>Average Heart Rate : </b>" + Math.round(heartRates / ratesCount) + "<b>bpm</b>");
     $('#distance').html("<b>Distance : </b>" + Math.round(dist*10)/10 + "<b>km</b>");
     //$('#top_speed').html("<b>Top Speed : </b>" + Math.round(topSpeed*10)/10 + "<b>km/h</b>");
@@ -215,8 +228,8 @@ function display_xml(xml) {
 
     $("#mapid").css("visibility", "visible");
     Chart.defaults.global.defaultFontColor = 'white';
-    var ctx = document.getElementById('elevations').getContext('2d');
-    var chart = new Chart(ctx, {
+
+    elevationsDataset = {
         // The type of chart we want to create
         type: 'line',
         // The data for our dataset
@@ -240,9 +253,16 @@ function display_xml(xml) {
                 }
             }]
         }}
-    });
-    var ctx = document.getElementById('speeds').getContext('2d');
-    var chart = new Chart(ctx, {
+    };
+
+    if (elevationsChart != null) {
+        elevationsChart.destroy();
+    }
+
+    var ctx = document.getElementById('elevations').getContext('2d');
+    elevationsChart = new Chart(ctx, elevationsDataset);
+
+    speedDataset = {
         // The type of chart we want to create
         type: 'line',
         // The data for our dataset
@@ -266,6 +286,14 @@ function display_xml(xml) {
                 }
             }]
         }}
-    });
+    };
+
+    if (speedChart != null) {
+        speedChart.destroy();
+    }
+
+    var ctx = document.getElementById('speeds').getContext('2d');
+    speedChart = new Chart(ctx, speedDataset);
+
 
 }
